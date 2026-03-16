@@ -6,11 +6,15 @@ function UserDetails() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    setUser(null);
+    setUser(null); // show Loading first
 
-    fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
-      .then((res) => res.json())
-      .then((data) => setUser(data));
+    setTimeout(() => {
+      fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setUser(data);
+        });
+    }, 500); // delay so Cypress detects Loading
   }, [id]);
 
   if (!user) {
